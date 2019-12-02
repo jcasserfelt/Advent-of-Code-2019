@@ -1,3 +1,5 @@
+package day1.src;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
