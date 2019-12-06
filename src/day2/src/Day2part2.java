@@ -78,67 +78,71 @@ public class Day2part2 {
         int resultPosition = 0;
         int operationResult;
         int currentOpcode = 0;
+        int magicNumber = 0;
+        boolean numberFound = false;
 
 
         // total missär
         while (true) {
+            if (numberFound == true) break;
             iValue = 0;
-            System.out.println("jai");
-            while (iValue < inputList.size()) {
-                if(iValue == 99) break;
-               outer: for (int i = 0; i <= 99; i++) {
-                    for (int j = 0; j <= 99; j++) {
+            outer:
+            for (int i = 0; i <= 99; i++) {
+                if (numberFound == true) break;
+                iValue = 0;
+                for (int j = 0; j <= 99; j++) {
 
-                        inputList.set(1, i);
-                        inputList.set(2, j);
-
-                        currentOpcode = inputList.get(iValue);
-
-
-                        if (iValue < inputList.size() - 3) {
-                            input1 = inputList.get(inputList.get(iValue + 1));
-                            input2 = inputList.get(inputList.get(iValue + 2));
-                            resultPosition = inputList.get(iValue + 3);
-                        }
-
-                        if (currentOpcode == 1) {
-                            operationResult = input1 + input2;
-                            inputList.set(resultPosition, operationResult);
-                        }
-                        if (currentOpcode == 2) {
-                            operationResult = input1 * input2;
-                            inputList.set(resultPosition, operationResult);
-                        }
-                        if (currentOpcode == 99) {
-                            System.out.println("opcode was99");
-                            System.out.println(i + " " + j);
-                            //System.out.println(inputList);
-                            //.out.println("0th value: " + inputList.get(0));
-                            //System.out.println("inputListOrginale:" + );
-                            break outer;
-                        }
-
-                        if (currentOpcode != 1 && currentOpcode != 2 && currentOpcode != 99) {
-                            System.out.println("wrong opcode" + i + " " + j);
-                            break outer;
-                            //break;
-                        }
-                        if (inputList.get(0) == 19690720) {
-                            System.out.println("bingo, answer: " + i + " " + j);
-                            break outer;
-                        }
-                        Day2part2.setToOrginalList(stringArray, inputList);
-                        iValue = iValue + 4;
-
-
+                    inputList.set(1, i);
+                    inputList.set(2, j);
+                    if (iValue >= inputList.size()) {
+                        iValue = 0;
+                        //break outer;
                     }
+                    currentOpcode = inputList.get(iValue);
+
+                    if (iValue < inputList.size() - 3) {
+                        input1 = inputList.get(inputList.get(iValue + 1));
+                        input2 = inputList.get(inputList.get(iValue + 2));
+                        resultPosition = inputList.get(iValue + 3);
+                    }
+
+                    if (currentOpcode == 1) {
+                        operationResult = input1 + input2;
+                        inputList.set(resultPosition, operationResult);
+                    }
+                    if (currentOpcode == 2) {
+                        operationResult = input1 * input2;
+                        inputList.set(resultPosition, operationResult);
+                    }
+                    if (currentOpcode == 99) {
+                        System.out.println("opcode was99");
+                        System.out.println("i:" + i + " " + "j:" + j);
+                        //System.out.println(inputList);
+                        //.out.println("0th value: " + inputList.get(0));
+                        //System.out.println("inputListOrginale:" + );
+                        //break;
+                    }
+
+                    if (currentOpcode != 1 && currentOpcode != 2 && currentOpcode != 99) {
+                        System.out.println("wrong opcode" + i + " " + j);
+                        break outer;
+                        //break;
+                    }
+                    if (inputList.get(0) == 19690720) {
+                        System.out.println("bingo, answer: " + i + " " + j);
+                        magicNumber = inputList.get(0);
+                        numberFound = true;
+                        //break outer;
+                    }
+                    Day2part2.setToOrginalList(stringArray, inputList);
+                    iValue = iValue + 4;
+
+
                 }
             }
+            break;
         }
-    }
-
-    public void calculate() {
-
+        System.out.println("magic number" + magicNumber);
     }
 }
 
