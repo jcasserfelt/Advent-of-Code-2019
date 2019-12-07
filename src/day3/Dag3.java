@@ -13,7 +13,7 @@ public class Dag3 {
         int tempX = 0;
         int tempY = 0;
         int closestIntersectionDistance = Integer.MAX_VALUE;
-        int tempIntersection;
+        int manhattanDistance;
         int intersectionCount = 0;
         String[] cable1Array;
         String[] cable2Array;
@@ -25,6 +25,7 @@ public class Dag3 {
         BufferedReader bufIn = new BufferedReader(new FileReader(file));
         List<Coordinate> cable1CoordinationPath = new ArrayList<>();
         List<Coordinate> cable2CoordinationPath = new ArrayList<>();
+        List<Coordinate> intersections = new ArrayList<>();
         // put input data in string arrays
         inputString = bufIn.readLine();
         cable1Array = inputString.split(",");
@@ -39,7 +40,7 @@ public class Dag3 {
                 tempX = currentX;
                 currentX += Integer.parseInt(cable1Array[i].substring(1, cable1Array[i].length()));
                 for (int j = 0; j < currentX; j++) {
-                    cable1CoordinationPath.add(new Coordinate(tempX, currentY));
+                    cable1CoordinationPath.add(new Coordinate(tempX + 1, currentY));
                     tempX++;
                 }
             }
@@ -47,7 +48,7 @@ public class Dag3 {
                 tempX = currentX;
                 currentX -= Integer.parseInt(cable1Array[i].substring(1, cable1Array[i].length()));
                 for (int j = 0; j > currentX; j--) {
-                    cable1CoordinationPath.add(new Coordinate(tempX, currentY));
+                    cable1CoordinationPath.add(new Coordinate(tempX - 1, currentY));
                     tempX--;
                 }
             }
@@ -55,7 +56,7 @@ public class Dag3 {
                 tempY = currentY;
                 currentY += Integer.parseInt(cable1Array[i].substring(1, cable1Array[i].length()));
                 for (int j = 0; j < currentY; j++) {
-                    cable1CoordinationPath.add(new Coordinate(currentX, tempY));
+                    cable1CoordinationPath.add(new Coordinate(currentX, tempY + 1));
                     tempY++;
                 }
             }
@@ -63,7 +64,7 @@ public class Dag3 {
                 tempY = currentY;
                 currentY -= Integer.parseInt(cable1Array[i].substring(1, cable1Array[i].length()));
                 for (int j = 0; j > currentY; j--) {
-                    cable1CoordinationPath.add(new Coordinate(currentX, tempY));
+                    cable1CoordinationPath.add(new Coordinate(currentX, tempY - 1));
                     tempY--;
                 }
             }
@@ -77,11 +78,11 @@ public class Dag3 {
         tempX = 0;
         tempY = 0;
         for (int i = 0; i < cable2Array.length; i++) {
-            tempX = currentX;
             if (cable2Array[i].charAt(0) == 'R') {
+                tempX = currentX;
                 currentX += Integer.parseInt(cable2Array[i].substring(1, cable2Array[i].length()));
-                for (int j = 0; j < currentX; j++) {
-                    cable2CoordinationPath.add(new Coordinate(tempX, currentY));
+                for (int j = 0; j <= currentX; j++) {
+                    cable2CoordinationPath.add(new Coordinate(tempX + 1, currentY));
                     tempX++;
                 }
             }
@@ -89,7 +90,7 @@ public class Dag3 {
                 tempX = currentX;
                 currentX -= Integer.parseInt(cable2Array[i].substring(1, cable2Array[i].length()));
                 for (int j = 0; j > currentX; j--) {
-                    cable2CoordinationPath.add(new Coordinate(tempX, currentY));
+                    cable2CoordinationPath.add(new Coordinate(tempX - 1, currentY));
                     tempX--;
                 }
             }
@@ -97,7 +98,7 @@ public class Dag3 {
                 tempY = currentY;
                 currentY += Integer.parseInt(cable2Array[i].substring(1, cable2Array[i].length()));
                 for (int j = 0; j < currentY; j++) {
-                    cable2CoordinationPath.add(new Coordinate(currentX, tempY));
+                    cable2CoordinationPath.add(new Coordinate(currentX, tempY + 1));
                     tempY++;
                 }
             }
@@ -105,30 +106,34 @@ public class Dag3 {
                 tempY = currentY;
                 currentY -= Integer.parseInt(cable2Array[i].substring(1, cable2Array[i].length()));
                 for (int j = 0; j > currentY; j--) {
-                    cable2CoordinationPath.add(new Coordinate(currentX, tempY));
+                    cable2CoordinationPath.add(new Coordinate(currentX, tempY - 1));
                     tempY--;
                 }
             }
         }
+        int antalVarv = 0;
         for (Coordinate c1 : cable1CoordinationPath) {
             tempX = c1.xValue;
             tempY = c1.yValue;
+            antalVarv++;
             for (Coordinate c2 : cable2CoordinationPath) {
-                if (c2.xValue == tempX && c2.yValue == tempY) {
-                }
-                tempIntersection = Math.abs(tempX) + Math.abs(tempY);
-                intersectionCount++;
-                if (tempIntersection < closestIntersectionDistance) {
-                    closestIntersectionDistance = tempIntersection;
+                if (c2.xValue == c1.xValue && c2.yValue == c1.yValue) {
+
+                    manhattanDistance = Math.abs(tempX) + Math.abs(tempY);
+                    intersectionCount++;
+                    intersections.add(c2);
+                    if (manhattanDistance < closestIntersectionDistance) {
+                        closestIntersectionDistance = manhattanDistance;
+                    }
                 }
             }
         }
-
 
         System.out.println("Kabel1 längd: " + cable1Array.length);
         System.out.println("Kabel2 längd: " + cable2Array.length);
         System.out.println("antal interserktions: " + intersectionCount);
         System.out.println("closestIntersectionDistance: " + closestIntersectionDistance);
+        System.out.println("antal varv: " + antalVarv);
 
     }
 }
