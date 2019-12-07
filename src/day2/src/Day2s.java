@@ -56,14 +56,15 @@ public class Day2s {
         }
 //      System.out.println();
 //      System.out.println(inputList);
-        System.out.println(testList);
-        System.out.println(testList2);
-        System.out.println(testList3);
+//        System.out.println(testList);
+//        System.out.println(testList2);
+//        System.out.println(testList3);
 
         int magicNumber = 0;
         int magicI = 0;
         int magicJ = 0;
         int finalAnswer = 0;
+        outer:
         for (int i = 0; i < inputList.size(); i++) {
             for (int j = 0; j < inputList.size(); j++) {
 
@@ -101,14 +102,14 @@ public class Day2s {
                         inputList.set(resultPosition, operationResult);
                     }
                     if (currentOpcode == 99) {
-                        System.out.println("opcode was99");
-                        System.out.println(inputList);
-                        System.out.println("0th value: " + inputList.get(0));
+//                        System.out.println("opcode was99");
+//                        System.out.println(inputList);
+//                        System.out.println("0th value: " + inputList.get(0));
                         break;
                     }
 
                     if (currentOpcode != 1 && currentOpcode != 2 && currentOpcode != 99) {
-                        System.out.println("wrong opcode");
+//                        System.out.println("wrong opcode");
                         break;
                     }
                     if (inputList.get(0) == 19690720) {
@@ -116,6 +117,8 @@ public class Day2s {
                         magicNumber = inputList.get(0);
                         magicI = i;
                         magicJ = j;
+                        finalAnswer = (100 * i) + j;
+                        break outer;
 
 //                        numberFound = true;
                         //break outer;
@@ -127,6 +130,7 @@ public class Day2s {
         System.out.println("magicNumber: " + magicNumber);
         System.out.println("magicI: " + magicI);
         System.out.println("magicJ: " + magicJ);
+        System.out.println("finalAnswer: " + finalAnswer);
     }
 }
 
