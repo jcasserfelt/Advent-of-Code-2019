@@ -26,16 +26,17 @@ public class Dag3s {
         Coordinate[] cable2CoordinatesArray;
 
         File file = new File("src/day3/Input/day3input1.txt");
-        BufferedReader bufIn = new BufferedReader(new FileReader(file));
+        File file2 = new File("src\\day3\\Input\\day3input1_1.txt");
+        BufferedReader bufIn = new BufferedReader(new FileReader(file2));
         List<Line> linesList1 = new ArrayList<>();
         List<Line> linesList2 = new ArrayList<>();
         List<Coordinate> coordinateList = new ArrayList<>();
+        List<Coordinate> intersections = new ArrayList<>();
 
 
         // put input data in string arrays
         inputString = bufIn.readLine();
         cable1Array = inputString.split(",");
-        cable1List = new Coordinate[cable1Array.length];
         inputString = bufIn.readLine();
         cable2Array = inputString.split(",");
         cable2CoordinatesArray = new Coordinate[cable2Array.length];
@@ -72,6 +73,8 @@ public class Dag3s {
         // Lets go cable 2
         currentX = 0;
         currentY = 0;
+        x0 = 0;
+        y0 = 0;
         for (int i = 0; i < cable2Array.length; i++) {
             x0 = currentX;
             if (cable2Array[i].charAt(0) == 'R') {
@@ -97,20 +100,27 @@ public class Dag3s {
         }
 
 
-        for (Line l1 : linesList1) {
-            for (int i = 0; i < l1.coords.length ; i++) {
-                coordinateList.add(l1.coords[i]);
+        for (Line line : linesList1) {
+            for (int i = 0; i < line.coords.length; i++) {
+                coordinateList.add(line.coords[i]);
             }
-
-            for (Line l2 : linesList2) {
-                for (int i = 0; i < l2.coords.length; i++) {
-                    if(l2.coords[i].yValue ==)
+        }
+        for (Coordinate coord : coordinateList) {
+            for (Line line : linesList2) {
+                for (int i = 0; i < line.coords.length; i++) {
+                    if (line.coords[i].xValue == coord.xValue && line.coords[i].yValue == coord.yValue && coord.yValue != 0 && coord.xValue != 0) {
+                        tempIntersection = Math.abs(coord.xValue) + Math.abs(coord.yValue);
+                        intersectionCount++;
+                        intersections.add(line.coords[i]);
+                        if (tempIntersection < closestIntersectionDistance) {
+                            closestIntersectionDistance = tempIntersection;
+                        }
+                    }
                 }
             }
         }
-
-        System.out.println("Kabel1 längd: " + cable1Array.length);
-        System.out.println("Kabel2 längd: " + cable2Array.length);
+//        System.out.println("Kabel1 längd: " + cable1Array.length);
+//        System.out.println("Kabel2 längd: " + cable2Array.length);
         System.out.println("antal interserktions: " + intersectionCount);
         System.out.println("closestIntersectionDistance" + closestIntersectionDistance);
     }
