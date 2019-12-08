@@ -8,4 +8,8 @@ public class Coordinate {
         this.xValue = xValue;
         this.yValue = yValue;
     }
+
+    public int getManhattan(){
+        return (Math.abs(xValue) + Math.abs(yValue));
+    }
 }
