@@ -10,13 +10,15 @@ public class PasswordContainer {
     String endString = "767346";
     //1085
     //673 too low
+    // 894
+    // ska vara runt 860
 
     public static void main(String[] args) {
         List<String> passwordList = new ArrayList<>();
         String tempString;
         int counter = 0;
 
-        for (int i = 231832; i < 767346; i++) {
+        for (int i = 231832 ; i < 767346; i++) {
             tempString = String.valueOf(i);
             if (isDecreasing(tempString) && hasDoublettes2(tempString)) {
                 counter++;
