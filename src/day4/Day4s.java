@@ -2,13 +2,13 @@ package day4;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Day4s {
     String startString = "231832";
     String endString = "767346";
-
+    String testStart = "387638";
+    String testEnd = "919123";
 
     public static void main(String[] args) throws IOException {
         File file = new File("src\\day4\\testInput.txt");
@@ -27,7 +27,7 @@ public class Day4s {
         String tempString;
         int counter = 0;
 
-        for (int i = 231832; i < 767346; i++) {
+        for (int i = 387638; i < 919123; i++) {
             tempString = String.valueOf(i);
             if (isDecreasing(tempString)) {
                 if (hasDoublettes(tempString)) {
@@ -70,10 +70,8 @@ public class Day4s {
         return result;
     }
 
-    //111122
     public static boolean hasDoublettes(String input) {
         List<String> parList = new ArrayList<>();
-        boolean result = false;
         int tempInt1;
         int tempInt2;
         int doubleCounter = 0;
@@ -90,26 +88,11 @@ public class Day4s {
         }
         for (String s : parList) {
             for (int k = 0; k < parList.size(); k++) {
-                if (s.equals(parList.get(k))) {
-                    doubleCounter++;
-                }
+                if (s.equals(parList.get(k))) doubleCounter++;
             }
-            if (doubleCounter == 1) {
-                return true;
-            }
+            if (doubleCounter == 1) return true;
             doubleCounter = 0;
         }
-//        if (parList.size() == 1) return true;
-//        //if (parList.size() == 4) return false;
-//        for (int i = 0; i < parList.size() - 1; i++) {
-//            if (parList.get(i).equals(parList.get(i + 1))) {
-//                break;
-//            } else if (parList.size() == 4) {
-//                if (parList.get(i + 1).equals(parList.get(i + 2)))
-//
-//            } else return true;
-//
-//        }
-        return result;
+        return false;
     }
 }
